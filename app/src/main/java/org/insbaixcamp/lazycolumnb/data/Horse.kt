@@ -8,7 +8,7 @@ data class Horse(
     var id: String = "",
     var name: String = "",
     var age: Int = 0,
-    var race: String = "",
+    var breed: String = "",
     var weight: Double = 100.0,
     var topSpeed: Double = 40.0,
     val createdAt: Long = System.currentTimeMillis(),
