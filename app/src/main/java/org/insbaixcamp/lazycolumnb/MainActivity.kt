@@ -73,7 +73,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             }
 
         db.collection("horses")
-            .addSnapshotListener  { result , e->
+            .addSnapshotListener { result, e ->
                 var fetchedHorses = ArrayList<Horse>()
                 result?.forEach { document ->
                     var fechedHorse = document.toObject(Horse::class.java)
