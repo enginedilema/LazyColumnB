@@ -72,16 +72,15 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 Log.w(TAG, "Error adding document", e)
             }
 
-        db.collection("horses").get()
-            .addOnSuccessListener { result ->
-                val fetchedHorses = result.mapNotNull { document ->
-                    document.toObject(Horse::class.java)
+        db.collection("horses")
+            .addSnapshotListener  { result , e->
+                var fetchedHorses = ArrayList<Horse>()
+                result?.forEach { document ->
+                    var fechedHorse = document.toObject(Horse::class.java)
+                    fetchedHorses.add(fechedHorse)
                 }
                 horses = fetchedHorses
                 Log.i(TAG, "Loaded ${fetchedHorses.size} horses")
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Error fetching horses", e)
             }
     }
 
@@ -103,6 +102,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 }
             }
         } else {
+            Log.i(TAG, "No horses found")
             Text(
                 text = "No horses found",
                 modifier = Modifier
